@@ -1,4 +1,4 @@
-# reactant-web
+# login-ui
 
 [![GitHub stars](https://img.shields.io/github/stars/codejamninja/reactant.svg?style=social&label=Stars)](https://github.com/codejamninja/reactant)
 

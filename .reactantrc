@@ -1,8 +1,8 @@
-title: 'Identity UI'
+title: 'Login UI'
 services:
-  flashcardApi: 'http://localhost:3000'
+  identityApi: 'http://localhost:3000'
 platforms:
-  web: '@reactant/web'
+  web: '@reactant/web-isomorphic'
 plugins:
   - '@reactant/react-router'
   - '@reactant/redux'
@@ -10,6 +10,3 @@ plugins:
   - '@reactant/styled-components'
 redux:
   persist: false
-  initialState:
-    user: {}
-    loading: []
