@@ -5,8 +5,8 @@ export default class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={() => import('./Home')} />
-        <Route path="/login" component={() => import('./Login')} />
+        <Route exact path="/" component={() => import('./Login')} />
+        <Route path="/consent" component={() => import('./Consent')} />
         <Route component={() => import('./NotFound')} />
       </Switch>
     );
