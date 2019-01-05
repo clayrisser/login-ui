@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import queryString from 'query-string';
-import { Field, reduxForm } from 'redux-form';
-import { View, TextInput } from '~/components';
+import { Field, Form, reduxForm } from 'redux-form';
+import { TextInput } from '~/components';
 import { connect } from 'react-redux';
 
 function noop() {}
@@ -21,7 +21,7 @@ class Consent extends Component {
   render() {
     noop(this.props.form.login?.values);
     return (
-      <View>
+      <Form>
         <Field
           component={TextInput}
           id="username"
@@ -35,7 +35,7 @@ class Consent extends Component {
           name="password"
           type="password"
         />
-      </View>
+      </Form>
     );
   }
 }

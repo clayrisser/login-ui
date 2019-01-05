@@ -1,21 +1,23 @@
+import CarbonTextInput from 'carbon-components-react/es/components/TextInput';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { TextInput as CarbonTextInput } from 'carbon-components-react';
 import autobind from 'autobind-decorator';
 
 @autobind
 export default class TextInput extends Component {
   static propTypes = {
     id: PropTypes.string,
+    input: PropTypes.object,
     labelText: PropTypes.string,
     onChange: PropTypes.func,
-    input: PropTypes.object
+    value: PropTypes.string
   };
 
   static defaultProps = {
     id: '',
     labelText: '',
     onChange: f => f,
+    value: null,
     input: {
       onChange: f => f,
       value: ''

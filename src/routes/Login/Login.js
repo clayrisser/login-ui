@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import autobind from 'autobind-decorator';
 import queryString from 'query-string';
-import { Button, View, TextInput } from '~/components';
-import { Field, reduxForm } from 'redux-form';
+import { Button, TextInput } from '~/components';
+import { Field, Form, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { login } from '~/actions/auth';
 
@@ -30,7 +30,7 @@ class Login extends Component {
   render() {
     noop(this.props.form.login?.values);
     return (
-      <View>
+      <Form>
         <Field
           component={TextInput}
           id="username"
@@ -45,7 +45,7 @@ class Login extends Component {
           type="password"
         />
         <Button onClick={this.handleLogin}>Login</Button>
-      </View>
+      </Form>
     );
   }
 }
