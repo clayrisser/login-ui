@@ -11,6 +11,7 @@ import { consentFlow } from '~/actions/flow';
 class Consent extends Component {
   static propTypes = {
     consentFlow: PropTypes.func.isRequired,
+    flow: PropTypes.object.isRequired,
     form: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired
   };
@@ -25,6 +26,9 @@ class Consent extends Component {
       this.challenge,
       this.props.form.consent.values
     );
+    if (this.props.flow.consent?.redirect) {
+      window.location = this.props.flow.consent.redirect;
+    }
   }
 
   render() {
@@ -53,7 +57,11 @@ export default reduxForm({
   form: 'consent'
 })(
   connect(
-    state => ({ form: state.form, router: state.router }),
+    state => ({
+      flow: state.flow,
+      form: state.form,
+      router: state.router
+    }),
     {
       consentFlow
     }

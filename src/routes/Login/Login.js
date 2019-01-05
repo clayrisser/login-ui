@@ -10,6 +10,7 @@ import { loginFlow } from '~/actions/flow';
 @autobind
 class Login extends Component {
   static propTypes = {
+    flow: PropTypes.object.isRequired,
     form: PropTypes.object.isRequired,
     loginFlow: PropTypes.func.isRequired,
     router: PropTypes.object.isRequired
@@ -21,8 +22,11 @@ class Login extends Component {
   }
 
   async handleLogin() {
-    const { username, password } = this.props.form.login.values;
+    const { username, password } = this.props.form.login?.values || {};
     await this.props.loginFlow(this.challenge, username, password);
+    if (this.props.flow.login?.redirect) {
+      window.location = this.props.flow.login.redirect;
+    }
   }
 
   render() {
@@ -51,7 +55,11 @@ export default reduxForm({
   form: 'login'
 })(
   connect(
-    state => ({ form: state.form, router: state.router }),
+    state => ({
+      flow: state.flow,
+      form: state.form,
+      router: state.router
+    }),
     {
       loginFlow
     }
