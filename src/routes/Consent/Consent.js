@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import autobind from 'autobind-decorator';
 import queryString from 'query-string';
 import { Field, Form, reduxForm } from 'redux-form';
-import { TextInput } from '~/components';
+import { Button, TextInput } from '~/components';
 import { connect } from 'react-redux';
+import { consentFlow } from '~/actions/flow';
 
-function noop() {}
-
+@autobind
 class Consent extends Component {
   static propTypes = {
+    consentFlow: PropTypes.func.isRequired,
     form: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired
   };
@@ -18,8 +20,14 @@ class Consent extends Component {
       .challenge;
   }
 
+  async handleConsent() {
+    await this.props.consentFlow(
+      this.challenge,
+      this.props.form.consent.values
+    );
+  }
+
   render() {
-    noop(this.props.form.login?.values);
     return (
       <Form>
         <Field
@@ -35,6 +43,7 @@ class Consent extends Component {
           name="password"
           type="password"
         />
+        <Button onClick={this.handleConsent}>Login</Button>
       </Form>
     );
   }
@@ -42,4 +51,11 @@ class Consent extends Component {
 
 export default reduxForm({
   form: 'consent'
-})(connect(state => ({ form: state.form, router: state.router }))(Consent));
+})(
+  connect(
+    state => ({ form: state.form, router: state.router }),
+    {
+      consentFlow
+    }
+  )(Consent)
+);

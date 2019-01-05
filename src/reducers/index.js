@@ -1,4 +1,5 @@
 import { reducer as form } from 'redux-form';
+import flow from './flow';
 
-export { form };
-export default { form };
+export { flow, form };
+export default { flow, form };

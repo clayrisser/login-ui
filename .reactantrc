@@ -10,3 +10,7 @@ plugins:
   - '@reactant/styled-components'
 redux:
   persist: false
+  initialState:
+    flow:
+      consent: {}
+      login: {}

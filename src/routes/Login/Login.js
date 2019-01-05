@@ -5,15 +5,13 @@ import queryString from 'query-string';
 import { Button, TextInput } from '~/components';
 import { Field, Form, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { login } from '~/actions/auth';
-
-function noop() {}
+import { loginFlow } from '~/actions/flow';
 
 @autobind
 class Login extends Component {
   static propTypes = {
     form: PropTypes.object.isRequired,
-    login: PropTypes.func.isRequired,
+    loginFlow: PropTypes.func.isRequired,
     router: PropTypes.object.isRequired
   };
 
@@ -24,11 +22,10 @@ class Login extends Component {
 
   async handleLogin() {
     const { username, password } = this.props.form.login.values;
-    await this.props.login(this.challenge, username, password);
+    await this.props.loginFlow(this.challenge, username, password);
   }
 
   render() {
-    noop(this.props.form.login?.values);
     return (
       <Form>
         <Field
@@ -56,7 +53,7 @@ export default reduxForm({
   connect(
     state => ({ form: state.form, router: state.router }),
     {
-      login
+      loginFlow
     }
   )(Login)
 );
