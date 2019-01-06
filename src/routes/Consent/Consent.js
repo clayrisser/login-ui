@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import _ from 'lodash';
 import autobind from 'autobind-decorator';
 import queryString from 'query-string';
+import { Button, Checkbox } from '~/components';
 import { Field, Form, reduxForm } from 'redux-form';
-import { Button, TextInput } from '~/components';
 import { connect } from 'react-redux';
 import { consentFlow } from '~/actions/flow';
 
@@ -17,8 +18,17 @@ class Consent extends Component {
   };
 
   get challenge() {
-    return queryString.parse(this.props.router?.location?.search || '')
-      .challenge;
+    return (
+      queryString.parse(this.props.router?.location?.search || '').challenge ||
+      ''
+    );
+  }
+
+  get requestedScope() {
+    const requestedScope = queryString.parse(
+      this.props.router?.location?.search || ''
+    ).requested_scope;
+    return requestedScope ? requestedScope.split(' ') : [];
   }
 
   async handleConsent() {
@@ -31,23 +41,19 @@ class Consent extends Component {
     }
   }
 
+  renderRequestedScope() {
+    return _.map(this.requestedScope, scope => {
+      return (
+        <Field component={Checkbox} id={scope} labelText={scope} name={scope} />
+      );
+    });
+  }
+
   render() {
     return (
       <Form>
-        <Field
-          component={TextInput}
-          id="username"
-          labelText="Username"
-          name="username"
-        />
-        <Field
-          component={TextInput}
-          id="password"
-          labelText="Password"
-          name="password"
-          type="password"
-        />
-        <Button onClick={this.handleConsent}>Login</Button>
+        {this.renderRequestedScope()}
+        <Button onClick={this.handleConsent}>Consent</Button>
       </Form>
     );
   }
