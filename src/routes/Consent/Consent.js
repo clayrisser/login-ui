@@ -31,11 +31,19 @@ class Consent extends Component {
     return requestedScope ? requestedScope.split(' ') : [];
   }
 
-  async handleConsent() {
-    await this.props.consentFlow(
-      this.challenge,
-      this.props.form.consent.values
+  get grantScope() {
+    return _.reduce(
+      this.props.form.consent.values,
+      (grantScope, grant, scope) => {
+        if (grant) grantScope.push(scope);
+        return grantScope;
+      },
+      []
     );
+  }
+
+  async handleConsent() {
+    await this.props.consentFlow(this.challenge, this.grantScope);
     if (this.props.flow.consent?.redirect) {
       window.location = this.props.flow.consent.redirect;
     }

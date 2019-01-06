@@ -21,13 +21,17 @@ export function loginFlow(challenge, username, password) {
   };
 }
 
-export function consentFlow(challenge, payload = {}) {
+export function consentFlow(challenge, grantScope = []) {
   return async dispatch => {
     dispatch({ type: null, meta: { loading: true } });
     const res = await axios
-      .post(`${config.services.identityApi}/auth/consent`, payload, {
-        params: { challenge }
-      })
+      .post(
+        `${config.services.identityApi}/auth/consent`,
+        { grantScope },
+        {
+          params: { challenge }
+        }
+      )
       .catch(log.warn);
     dispatch({
       type: CONSENT_FLOW,
