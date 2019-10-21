@@ -30,6 +30,7 @@ npm install
 ## Usage
 
 The login provider I created for this can be found at the link below.
+
 https://github.com/codejamninja/loopback4-hydra
 
 | Command                           | Description                      |
